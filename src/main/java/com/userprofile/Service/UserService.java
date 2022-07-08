@@ -59,7 +59,9 @@ public class UserService {
       return adminRepo.findAll();
     }
 //    ==================For Uploading====================
-public void savePhotos(UserUpload uploadphotos){
-    uploads.save(uploadphotos);
+
+public void savePhotos(UserUpload photos) {
+	uploads.save(photos);
+	
 }
 }

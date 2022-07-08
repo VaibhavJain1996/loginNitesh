@@ -86,17 +86,14 @@ public class UserController {
     }
 //    ====================For Upload photos=====================
     
-    
-//@PostMapping("/uploadphoto")
-//public void addpost(@RequestBody UserUpload photos,String email){
-//    userService.savePhotos(photos);
-//}
-
-@PostMapping("/uploadphoto")
-public void addpost(@RequestBody UserUpload photos, String email){
+@PostMapping("/uploadphoto/{email}")
+public void addpost(@RequestBody UserUpload photos, @PathVariable("email") String email){
     NewUser newUser = userRepo.getByEmail(email);
-    if (newUser.getEmail().equals(email))
-    uploading_photos.savePhotos(photos);
+    if (newUser.getEmail().equals(email))  	
+    photos.setNewUser(newUser);
+    System.out.println(photos);
+    userService.savePhotos(photos);
+}
 
 @GetMapping("/getupload")
 public List<UserUpload> getAllDetals() {
