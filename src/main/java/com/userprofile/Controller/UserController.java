@@ -29,7 +29,9 @@ public class UserController {
     AdminRepo adminRepo;
     @Autowired
     Uploading_photos uploading_photos;
+    
 //===================For Users===========================
+    
     @PostMapping("/adduser")
     public void adduser(@RequestBody NewUser user){
         userService.saveUser(user);
@@ -64,6 +66,7 @@ public class UserController {
 	userService.remove(id);
 		return "User Deleted";
     }
+    
 //================For Admin=====================
 
     @PostMapping("/addadmin")
@@ -84,6 +87,7 @@ public class UserController {
          return null;
         }
     }
+    
 //    ====================For Upload photos=====================
     
 @PostMapping("/uploadphoto/{email}")
@@ -91,7 +95,6 @@ public void addpost(@RequestBody UserUpload photos, @PathVariable("email") Strin
     NewUser newUser = userRepo.getByEmail(email);
     if (newUser.getEmail().equals(email))  	
     photos.setNewUser(newUser);
-    System.out.println(photos);
     userService.savePhotos(photos);
 }
 

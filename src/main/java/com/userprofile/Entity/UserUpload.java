@@ -1,13 +1,20 @@
 package com.userprofile.Entity;
 
-import org.springframework.data.annotation.CreatedDate;
 
-import javax.persistence.*;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+
+
 
 @Entity
 @Table(name="UserUpload")
@@ -15,6 +22,27 @@ public class UserUpload {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
+    String image_url;
+    
+    @Temporal(value=TemporalType.TIMESTAMP)
+    @Column(name="date")
+    Date date;
+    
+    public UserUpload(int id, String image_url, Date date, String description, NewUser newUser,
+			String image_name) {
+		super();
+		this.id = id;
+		this.image_url = image_url;
+		this.date = date;
+		this.description = description;
+		this.newUser = newUser;
+		this.image_name = image_name;
+	}
+
+	
+	String description;
+    @ManyToOne
+	NewUser newUser;
 
     public UserUpload() {
         super();
@@ -61,35 +89,16 @@ public class UserUpload {
         this.description = description;
     }
 
-    String image_url;
-    
-    @Temporal(TemporalType.DATE)
-    @CreatedDate
-    Date date;
-    String description;
+   
 
 
 
     @Override
 	public String toString() {
-		return "UserUpload [id=" + id + ", image_name=" + image_name + ", image_url=" + image_url + ", date=" + date
-				+ ", description=" + description + ", newUser=" + newUser + "]";
+		return "UserUpload [id=" + id + ", image_url=" + image_url + ", date=" + date + ", description=" + description + ", newUser=" + newUser + ", image_name=" + image_name + "]";
 	}
 
     
-	
-	@ManyToOne
-	NewUser newUser;
-
-	public UserUpload(int id, String image_name, String image_url, Date date, String description, NewUser newUser) {
-		super();
-		this.id = id;
-		this.image_name = image_name;
-		this.image_url = image_url;
-		this.date = date;
-		this.description = description;
-		this.newUser = newUser;
-	}
 
 	public NewUser getNewUser() {
 		return newUser;
